@@ -7,15 +7,11 @@ public class MonthioBudgetOutputsClient
 {
     private static readonly HttpClient HttpClient = new();
 
-    public static async Task<JsonElement> GetBudgetOutputsAsync(string accessToken, JsonElement caseData)
+    public static async Task<JsonElement> GetBudgetOutputsAsync(string accessToken, string caseId)
     {
-        var href = caseData
-            .GetProperty("budgetOutputs")
-            .GetProperty("href")
-            .GetString()
-            ?? throw new InvalidOperationException("budgetOutputs.href missing from case response");
+        var url = $"https://test-budgets.monthio.com/api/smart-check-sessions/{caseId}/budget-outputs";
 
-        var request = new HttpRequestMessage(HttpMethod.Get, href);
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         request.Headers.Accept.Add(new("application/json"));
 

@@ -62,5 +62,9 @@ MonthioCaseDataClient.PrintCaseStatus(caseData);
 
 // 5. Fetch and print budget outputs
 Console.WriteLine("Fetching budget outputs...");
-var budgetOutputs = await MonthioBudgetOutputsClient.GetBudgetOutputsAsync(accessToken, caseData);
+var budgetOutputs = await MonthioBudgetOutputsClient.GetBudgetOutputsAsync(accessToken, caseId);
 MonthioBudgetOutputsClient.PrintBudgetOutputs(budgetOutputs);
+
+// 6. Fetch and print raw eSkat JSON output per applicant
+Console.WriteLine("Fetching eSkat JSON output...");
+await MonthioEskatJsonOutputClient.GetAllApplicantsEskatJsonAsync(accessToken, caseData);
